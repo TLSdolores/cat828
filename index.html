@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流浪猫照片与视频展示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .description {
+            max-width: 800px;
+            margin: 0 auto 25px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .filter-btn.active {
+            background: #6a11cb;
+            color: white;
+        }
+        
+        .cats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .cat-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .cat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cat-id {
+            text-align: center;
+            padding: 15px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #6a11cb;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .cat-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .cat-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .cat-card:hover .cat-image {
+            transform: scale(1.05);
+        }
+        
+        .cat-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .media-controls {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .media-btn {
+            padding: 10px 20px;
+            background: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .media-btn:hover {
+            background: #2575fc;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .cats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .filter-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-cat"></i> 西安市小动物保护协会828救助猫咪照片与视频展示</h1>
+            <p class="description">我们致力于救助和照顾无家可归的流浪猫，为它们寻找温暖的家庭。这里每只猫咪都有自己独特的故事，它们正在等待一个爱它们的主人</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-border-all"></i> 全部猫咪
+            </button>
+            <button class="filter-btn" data-filter="photo">
+                <i class="fas fa-camera"></i> 仅看照片
+            </button>
+            <button class="filter-btn" data-filter="video">
+                <i class="fas fa-video"></i> 仅看视频
+            </button>
+        </div>
+
+        <div class="cats-grid">
+            <!-- 猫咪卡片1 -->
+            <div class="cat-card" data-type="both">
+                <div class="cat-id">CAT-001</div>
+                <div class="cat-media">
+                    <img src="photos/cat-001.jpg" alt="猫咪编号 CAT-001" class="cat-image">
+                    <video class="cat-video" controls>
+                        <source src="videos/cat-001.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="media-controls">
+                    <button class="media-btn toggle-media">
+                        <i class="fas fa-exchange-alt"></i> 切换媒体
+                    </button>
+                </div>
+            </div>
+
+            <!-- 猫咪卡片2 -->
+            <div class="cat-card" data-type="both">
+                <div class="cat-id">CAT-002</div>
+                <div class="cat-media">
+                    <img src="photos/cat-002.jpg" alt="猫咪编号 CAT-002" class="cat-image">
+                    <video class="cat-video" controls>
+                        <source src="#" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="media-controls">
+                    <button class="media-btn toggle-media">
+                        <i class="fas fa-exchange-alt"></i> 切换媒体
+                    </button>
+                </div>
+            </div>
+
+            <!-- 猫咪卡片3 -->
+            <div class="cat-card" data-type="both">
+                <div class="cat-id">CAT-003</div>
+                <div class="cat-media">
+                    <img src="photos/cat-003.jpg" alt="猫咪编号 CAT-003" class="cat-image">
+                    <video class="cat-video" controls>
+                        <source src="#" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="media-controls">
+                    <button class="media-btn toggle-media">
+                        <i class="fas fa-exchange-alt"></i> 切换媒体
+                    </button>
+                </div>
+            </div>
+
+            <!-- 猫咪卡片4 -->
+            <div class="cat-card" data-type="both">
+                <div class="cat-id">CAT-004</div>
+                <div class="cat-media">
+                    <img src="photos/cat-004.jpg" alt="猫咪编号 CAT-004" class="cat-image">
+                    <video class="cat-video" controls>
+                        <source src="#" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="media-controls">
+                    <button class="media-btn toggle-media">
+                        <i class="fas fa-exchange-alt"></i> 切换媒体
+                    </button>
+                </div>
+            </div>
+
+            <!-- 猫咪卡片5 -->
+            <div class="cat-card" data-type="both">
+                <div class="cat-id">CAT-005</div>
+                <div class="cat-media">
+                    <img src="photos/cat-005.jpg" alt="猫咪编号 CAT-005" class="cat-image">
+                    <video class="cat-video" controls>
+                        <source src="#" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="media-controls">
+                    <button class="media-btn toggle-media">
+                        <i class="fas fa-exchange-alt"></i> 切换媒体
+                    </button>
+                </div>
+            </div>
+
+            <!-- 猫咪卡片6 -->
+            <div class="cat-card" data-type="both">
+                <div class="cat-id">CAT-006</div>
+                <div class="cat-media">
+                    <img src="photos/cat-006.jpg" alt="猫咪编号 CAT-006" class="cat-image">
+                    <video class="cat-video" controls>
+                        <source src="#" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                </div>
+                <div class="media-controls">
+                    <button class="media-btn toggle-media">
+                        <i class="fas fa-exchange-alt"></i> 切换媒体
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 流浪猫照片与视频展示 | 本页面仅用于展示目的</p>
+        </footer>
+    </div>
+
+    <script>
+        // 媒体切换功能
+        document.querySelectorAll('.toggle-media').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.cat-card');
+                const image = card.querySelector('.cat-image');
+                const video = card.querySelector('.cat-video');
+                
+                if (image.style.display !== 'none') {
+                    image.style.display = 'none';
+                    video.style.display = 'block';
+                    this.innerHTML = '<i class="fas fa-exchange-alt"></i> 切换到照片';
+                } else {
+                    video.style.display = 'none';
+                    image.style.display = 'block';
+                    this.innerHTML = '<i class="fas fa-exchange-alt"></i> 切换到视频';
+                }
+            });
+        });
+        
+        // 筛选功能
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的active类
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // 为当前点击的按钮添加active类
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const cards = document.querySelectorAll('.cat-card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else if (filter === 'photo') {
+                        // 显示所有卡片，但将视频切换为照片显示
+                        card.style.display = 'block';
+                        const image = card.querySelector('.cat-image');
+                        const video = card.querySelector('.cat-video');
+                        const button = card.querySelector('.toggle-media');
+                        
+                        image.style.display = 'block';
+                        video.style.display = 'none';
+                        button.innerHTML = '<i class="fas fa-exchange-alt"></i> 切换到视频';
+                    } else if (filter === 'video') {
+                        // 显示所有卡片，但将照片切换为视频显示
+                        card.style.display = 'block';
+                        const image = card.querySelector('.cat-image');
+                        const video = card.querySelector('.cat-video');
+                        const button = card.querySelector('.toggle-media');
+                        
+                        image.style.display = 'none';
+                        video.style.display = 'block';
+                        button.innerHTML = '<i class="fas fa-exchange-alt"></i> 切换到照片';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
