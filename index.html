@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西安市小动物协会流浪猫救助</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 适配Safari及所有浏览器，彻底不发送Referrer -->
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Referrer-Policy" content="no-referrer">
+    <meta name="referrer" content="never">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>🐱 西安市小动物协会828猫车救助猫咪合集</h1>
+            <p class="subtitle">为184只被救助的流浪猫寻找温暖的家</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- 分类筛选器 -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="gender-filter">性别筛选：</label>
+                    <select id="gender-filter" class="filter-select">
+                        <option value="all">全部</option>
+                        <option value="male">公猫</option>
+                        <option value="female">母猫</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="breed-filter">品种筛选：</label>
+                    <select id="breed-filter" class="filter-select">
+                        <option value="all">全部品种</option>
+                        <option value="狸花/简州">狸花/简州</option>
+                        <option value="三花">三花</option>
+                        <option value="橘猫/橘白">橘猫/橘白</option>
+                        <option value="奶牛">奶牛</option>
+                        <option value="玳瑁">玳瑁</option>
+                        <option value="黑猫">黑猫</option>
+                        <option value="白猫">白猫</option>
+                        <option value="美短">美短</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 统计信息 -->
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="total-count">110</span>
+                    <span class="stat-label">总数量</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="male-count">0</span>
+                    <span class="stat-label">公猫</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="female-count">0</span>
+                    <span class="stat-label">母猫</span>
+                </div>
+            </div>
+
+            <!-- 猫咪卡片容器 -->
+            <div class="cats-grid" id="cats-grid">
+                <!-- 猫咪卡片将通过JavaScript动态生成 -->
+            </div>
+
+            <!-- 加载更多按钮 -->
+            <div class="load-more-container">
+                <button id="load-more" class="load-more-btn">加载更多</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 联系我们板块 -->
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="section-title">📞 联系我们</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>🏥 救助热线</h3>
+                        <p>电话：15909298965（曲女士）</p>
+                        <p>工作时间：周一至周日 9:00-17:00</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📍 地址信息</h3>
+                        <p>未央区建章路街道天章大道北段天章垂钓园北侧</p>
+                        <p>西安市小动物保护协会流浪动物救助基地</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 救助倡议板块 -->
+    <section class="rescue-section">
+        <div class="container">
+            <h2 class="section-title">💝 救助倡议</h2>
+            <div class="rescue-content">
+                <div class="rescue-item">
+                    <h3>🏠 领养代替购买</h3>
+                    <p>每一只流浪猫都值得被爱。选择领养，给它们一个温暖的家，让爱传递下去。</p>
+                </div>
+                <div class="rescue-item">
+                    <h3>🤝 志愿者招募</h3>
+                    <p>我们需要更多爱心人士加入我们的救助团队。无论您能提供什么帮助，都是珍贵的。</p>
+                </div>
+                <div class="rescue-item">
+                    <h3>💰 爱心捐赠</h3>
+                    <p>您的每一份捐赠都将用于流浪猫的救助、医疗和日常护理。让爱心汇聚成力量。</p>
+                </div>
+                <div class="rescue-item">
+                    <h3>📢 传播爱心</h3>
+                    <p>分享我们的救助故事，让更多人了解流浪动物的困境，一起为它们发声。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特别感谢板块 -->
+    <section class="thanks-section">
+        <div class="container">
+            <h2 class="section-title">🙏 特别感谢</h2>
+            <div class="thanks-content">
+                <div class="thanks-item">
+                    <h3>👨‍⚕️ 医疗团队</h3>
+                    <p>感谢所有为流浪猫提供医疗救助的兽医和医护人员，是你们的专业和爱心让这些生命重获健康。</p>
+                </div>
+                <div class="thanks-item">
+                    <h3>👥 志愿者团队</h3>
+                    <p>感谢每一位无私奉献的志愿者，是你们的坚持和爱心让这些流浪猫有了温暖的庇护所。</p>
+                </div>
+                <div class="thanks-item">
+                    <h3>🏢 合作机构</h3>
+                    <p>感谢所有支持我们工作的合作机构和爱心企业，是你们的支持让我们的救助工作得以持续。</p>
+                </div>
+                <div class="thanks-item">
+                    <h3>💝 爱心人士</h3>
+                    <p>感谢每一位关注和支持流浪猫救助的爱心人士，是你们的关注和帮助让这个世界更加温暖。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 猫咪详情模态框 -->
+    <div id="cat-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="cat-details">
+                    <div class="cat-images">
+                        <img id="modal-cat-image" src="" alt="猫咪照片" class="modal-cat-image">
+                        <video id="modal-cat-video" controls class="modal-cat-video" preload="none">
+                            <source src="" type="video/mp4">
+                            您的浏览器不支持视频播放。
+                        </video>
+                    </div>
+                    <div class="cat-info">
+                        <h2 id="modal-cat-title"></h2>
+                        <div class="cat-tags">
+                            <span id="modal-cat-gender" class="tag"></span>
+                            <span id="modal-cat-breed" class="tag"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 西安市小动物协会 感谢每一个守护流浪动物的你</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
